@@ -1,23 +1,29 @@
 package academy.devdojo.controller;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import academy.devdojo.domain.Anime;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = {"v1/animes", "v1/animes/"})
 public class AnimeController {
 
     @GetMapping()
-     public ArrayList<String> animeList(){
-        ArrayList<String> animes = new ArrayList<>();
-        animes.add("Hunter x Hunter");
-        animes.add("One Piece");
-        animes.add("Kimetsu no Yaba");
-        return animes;
-     }
+    public List<Anime> animeList(@RequestParam(required = false) String name) {
+        var animes = Anime.getAnimes();
+        if (name == null) return animes;
+        return animes.stream().filter(anime -> anime.getName().equalsIgnoreCase(name)).toList();
+    }
+
+    @GetMapping("/{id}")
+    public Anime findByID(@PathVariable Long id) {
+        if (id == null) return null;
+        return Anime.getAnimes()
+                .stream()
+                .filter(anime -> anime.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+    }
 
 }
