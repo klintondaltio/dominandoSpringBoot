@@ -4,9 +4,9 @@ import java.util.List;
 
 public class Anime {
 
-    private Long id;
+    private final Long id;
 
-    private String name;
+    private final String name;
 
     public Anime(Long id, String name) {
         this.id = id;
