@@ -1,17 +1,19 @@
 package academy.devdojo.domain;
 
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.List;
+@Getter
+@Setter
+@AllArgsConstructor
 public class Anime {
 
     private final Long id;
 
     private final String name;
 
-    public Anime(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 
     public static List<Anime> getAnimes() {
         Anime ex1 = new Anime(1L,"Hunter x Hunter");
@@ -20,12 +22,4 @@ public class Anime {
         return List.of(ex1, ex2, ex3);
     }
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
 }
