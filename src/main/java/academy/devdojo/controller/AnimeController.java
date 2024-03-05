@@ -30,4 +30,11 @@ public class AnimeController {
                 .orElse(null);
     }
 
+    @PostMapping
+    public String save(@RequestBody String name){
+        log.info("Request received to list all animes, param name: '{}'", name);
+        return name;
+    }
+
+
 }
