@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @RestController
 @RequestMapping(path = {"v1/animes", "v1/animes/"})
@@ -31,9 +32,11 @@ public class AnimeController {
     }
 
     @PostMapping
-    public String save(@RequestBody String name){
-        log.info("Request received to list all animes, param name: '{}'", name);
-        return name;
+    public Anime save(@RequestBody Anime anime){
+        log.info("Request received to list all animes, param name: '{}'", anime.getName());
+        anime.setId(ThreadLocalRandom.current().nextLong(100_000));
+        Anime.getAnimes().add(anime);
+        return anime;
     }
 
 
