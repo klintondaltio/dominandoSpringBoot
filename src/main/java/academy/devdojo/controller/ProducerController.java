@@ -3,6 +3,7 @@ package academy.devdojo.controller;
 import academy.devdojo.domain.Producer;
 import academy.devdojo.mapper.ProducerMapper;
 import academy.devdojo.request.ProducerPostRequest;
+import academy.devdojo.request.ProducerPutRequest;
 import academy.devdojo.response.ProducerGetResponse;
 import academy.devdojo.response.ProducerPostResponse;
 import lombok.extern.log4j.Log4j2;
@@ -47,12 +48,26 @@ public class ProducerController {
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         log.info("Delete producers by id, param name: '{}'", id);
-        var producer = Producer.getProducers()
+        var producerFound = Producer.getProducers()
                 .stream()
                 .filter(producers -> producers.getId().equals(id))
                 .findFirst()
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Producer not found to be deleted."));
-        Producer.getProducers().remove(producer);
+        Producer.getProducers().remove(producerFound);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping
+    public ResponseEntity<Void> updateById(@RequestBody ProducerPutRequest request) {
+        log.info("Update producers, param name: '{}'", request.getName());
+        var producerFound = Producer.getProducers()
+                .stream()
+                .filter(producers -> producers.getId().equals(request.getId()))
+                .findFirst()
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Producer not found to be updated."));
+        var producerUpdated = MAPPER.toProducer(request, producerFound.getCreatedAt());
+        Producer.getProducers().remove(producerFound);
+        Producer.getProducers().add(producerUpdated);
         return ResponseEntity.noContent().build();
     }
 }
