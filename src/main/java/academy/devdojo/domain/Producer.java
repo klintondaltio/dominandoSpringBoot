@@ -1,6 +1,5 @@
 package academy.devdojo.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +20,7 @@ public class Producer {
     private LocalDateTime createdAt;
 
     private static List<Producer> producer = new ArrayList<>();
+
     static {
         Producer ex1 = Producer.builder().id(1L).name("Mappa").createdAt(LocalDateTime.now()).build();
         Producer ex2 = Producer.builder().id(2L).name("Kyoto Animation").createdAt(LocalDateTime.now()).build();
@@ -28,7 +28,7 @@ public class Producer {
         producer.addAll(List.of(ex1, ex2, ex3));
     }
 
-    public static List<Producer> getProducer(){
+    public static List<Producer> getProducer() {
         return producer;
     }
 
