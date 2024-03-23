@@ -1,9 +1,7 @@
 package academy.devdojo.domain;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -11,12 +9,14 @@ import java.util.List;
 
 @Getter
 @Setter
+@ToString
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Producer {
 
+    @EqualsAndHashCode.Include
     private Long id;
-
+    @JsonProperty(value = "name")
     private String name;
 
     private LocalDateTime createdAt;

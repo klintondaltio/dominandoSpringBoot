@@ -1,10 +1,7 @@
 package academy.devdojo.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,8 +11,11 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@Builder
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Anime {
 
+    @EqualsAndHashCode.Include
     private Long id;
 
     @JsonProperty(value = "name")
